@@ -7,6 +7,7 @@ from sentence_transformers import SentenceTransformer
 # Load model once at module level to avoid reloading on every call
 _model = SentenceTransformer("all-MiniLM-L6-v2")
 
+
 def embed_text(text: str) -> list[float]:
     """
     Converts a text string into a vector embedding.
@@ -19,4 +20,3 @@ def embed_text(text: str) -> list[float]:
     """
     embedding = _model.encode(text, convert_to_numpy=True)
     return embedding.tolist()
-    

@@ -1,3 +1,3 @@
-from agent.llm.client import generate_response
+from agent.llm.client import LLMClient
 
-print(generate_response("Hello! Who are you?"))
+print(LLMClient().generate_response("Hello! Who are you?"))

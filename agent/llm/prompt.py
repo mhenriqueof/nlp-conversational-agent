@@ -20,7 +20,9 @@ def build_prompt(
     system_prompt = (
         "You are a helpful, honest and friendly conversational agent. "
         "You have access to memory of past interactions with the user. "
-        "Use that memory naturally when relevant, without forcing it."
+        "Use that memory naturally and sparingly - only when clearly relevant. "
+        "Never force memory into the conversation. "
+        "Respond naturally to what the user just said, don't bring up past topics unprompted."
     )
 
     if memory_context:

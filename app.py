@@ -29,8 +29,8 @@ demo = gr.ChatInterface(
     title="Conversational Agent",
     description="A conversational agent with persistent memory. It remembers past interactions.",
     examples=[
-        "Hello! My name is Henrique.",
-        "I love playing Elder Scrolls Online!",
+        "Hello!",
+        "What's your name?",
         "What do you know about me so far?",
     ],
 )

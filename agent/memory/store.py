@@ -61,5 +61,5 @@ class MemoryStore:
         """
         results = self._collection.query(query_embeddings=[embedding], n_results=top_k)
 
-        documents = results.get("documents", [[]])[0]  # type: ignore
+        documents = results.get("documents", [[]])[0] # type: ignore
         return documents

@@ -1,6 +1,5 @@
 """
 Responsible for the Retrieval-Augmented Generation pipeline.
-Connects the embedding, memory and LLM layers into a single memory-aware flow.
 """
 
 from agent.memory.embedder import embed_text
@@ -41,18 +40,18 @@ class RAGPipeline:
         Returns:
             The generated response as a string.
         """
-        # Step 1: embed user message
+        # 1. Embed user message
         embedding = embed_text(user_message)
 
-        # Step 2: retrieve similar past episodes
+        # 2. Retrieve similar past episodes
         similar_episodes = self._memory.retrieve_similar_episodes(embedding)
 
-        # Step 3: generate rersponse with memory context
+        # 3. Generate rersponse with memory context
         response = self._llm.generate_response(
             user_message=user_message, memory_context=similar_episodes
         )
 
-        # Step 4: Save episode to memory
+        # 4. Save episode to memory
         self._memory.save_episode(
             user_message=user_message, agent_response=response, embedding=embedding
         )

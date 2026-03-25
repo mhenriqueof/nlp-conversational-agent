@@ -37,7 +37,7 @@ class LLMClient:
     def generate_response(
         self,
         user_message: str,
-        memory_context: list[str] | None = None,
+        memory_context: list[str] = [],
         model: str = "Qwen/Qwen2.5-72B-Instruct",
         max_new_tokens: int = 512,
     ) -> str:
@@ -53,9 +53,6 @@ class LLMClient:
         Returns:
             The generated response as a string.
         """
-        if memory_context is None:
-            memory_context = []
-
         prompt = build_prompt(user_message, memory_context)
 
         response = self._client.chat.completions.create(
@@ -65,4 +62,4 @@ class LLMClient:
             temperature=0.7,
         )
 
-        return response.choices[0].message.content.strip()  # type: ignore
+        return response.choices[0].message.content.strip() # type: ignore

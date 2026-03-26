@@ -62,4 +62,4 @@ class LLMClient:
             temperature=0.7,
         )
 
-        return response.choices[0].message.content.strip() # type: ignore
+        return response.choices[0].message.content.strip()  # type: ignore

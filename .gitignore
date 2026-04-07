@@ -209,3 +209,4 @@ __marimo__/
 # Others
 .env
 /chroma_db
+user_profile.json

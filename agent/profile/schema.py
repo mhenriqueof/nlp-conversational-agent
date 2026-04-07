@@ -50,3 +50,30 @@ class UserProfile(BaseModel):
             return ""
 
         return "\n".join(lines)
+
+    def save(self, path: str = "user_profile.json") -> None:
+        """
+        Saves the user profile to a JSON file.
+
+        Args:
+            path: Path to the JSON file. Defaults to 'user_profile.json'.
+        """
+        with open(path, "w", encoding="utf-8") as f:
+            f.write(self.model_dump_json(indent=2))
+
+    @classmethod
+    def load(cls, path: str = "user_profile.json") -> "UserProfile":
+        """
+        Loads the user profile from a JSON file.
+
+        Args:
+            path: Path to the JSON file. Defaults to 'user_profile.json'.
+
+        Returns:
+            A UserProfile instance loaded from file, or a new empty one.
+        """
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                return cls.model_validate_json(f.read())
+        except FileNotFoundError:
+            return cls()

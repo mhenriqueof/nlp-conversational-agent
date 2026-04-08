@@ -24,7 +24,7 @@ class ProfileUpdater:
         self._llm = LLMClient()
 
     def extract_and_update(
-        self, user_message: str, profile: UserProfile
+        self, user_message: str, profile: UserProfile, username: str
     ) -> UserProfile:
         """
         Extracts from information from a message and updates the profile.
@@ -32,6 +32,7 @@ class ProfileUpdater:
         Args:
             user_message: The current message from the user.
             profile: The current UserProfile instance to update.
+            username: The username used to identify the profile file.
 
         Returns:
             An updated UserProfile instance.
@@ -79,5 +80,5 @@ User message: "{user_message}"
         if extracted.get("values"):
             profile.values = list(set(profile.values + extracted["values"]))
 
-        profile.save()
+        profile.save(username)
         return profile

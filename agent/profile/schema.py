@@ -1,7 +1,7 @@
 """
 Defines the user profile schema using Pydantic.
 """
-
+import os
 from pydantic import BaseModel, Field
 
 
@@ -51,29 +51,31 @@ class UserProfile(BaseModel):
 
         return "\n".join(lines)
 
-    def save(self, path: str = "user_profile.json") -> None:
+    def save(self, username: str) -> None:
         """
-        Saves the user profile to a JSON file.
+        Saves the user profile to a per-user JSON file.
 
         Args:
-            path: Path to the JSON file. Defaults to 'user_profile.json'.
+            username: The username used to identify the profile file.
         """
-        with open(path, "w", encoding="utf-8") as f:
+        os.makedirs("profiles", exist_ok=True)
+
+        with open(f"profiles/{username}.json", "w", encoding="utf-8") as f:
             f.write(self.model_dump_json(indent=2))
 
     @classmethod
-    def load(cls, path: str = "user_profile.json") -> "UserProfile":
+    def load(cls, username: str) -> "UserProfile":
         """
-        Loads the user profile from a JSON file.
+        Loads the user profile from a per-user JSON file.
 
         Args:
-            path: Path to the JSON file. Defaults to 'user_profile.json'.
+            username: The username used to identify the profile file.
 
         Returns:
             A UserProfile instance loaded from file, or a new empty one.
         """
         try:
-            with open(path, "r", encoding="utf-8") as f:
+            with open(f"profiles/{username}.json", "r", encoding="utf-8") as f:
                 return cls.model_validate_json(f.read())
         except FileNotFoundError:
             return cls()

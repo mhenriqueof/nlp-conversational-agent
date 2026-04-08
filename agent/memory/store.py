@@ -9,21 +9,23 @@ from datetime import datetime
 class MemoryStore:
     """
     Handles persistent storage and retrieval of conversation episodes using ChromaDB.
+    Each user gets their own isolated collection.
 
     Attributes:
         _client: Private PersistentClient instance connected to the ChromaDB database.
         _collection: Private ChromaDB collection storing episodic memory documents.
     """
 
-    def __init__(self, path: str = "chroma_db"):
+    def __init__(self, username: str, path: str = "chroma_db"):
         """
-        Initializes the MemoryStore by creating a ChromaDB client and collection.
+        Initializes the MemoryStore by creating a ChromaDB client and a per-user collection.
 
         Args:
+            username: The username used to identify the user's collection.
             path: Path to the ChromaDB persistent storage directory. Defaults to 'chroma_db'.
         """
         self._client = chromadb.PersistentClient(path=path)
-        self._collection = self._client.get_or_create_collection(name="episodic_memory")
+        self._collection = self._client.get_or_create_collection(name=f"episodic_memory_{username}")
 
     def save_episode(
         self, user_message: str, agent_response: str, embedding: list[float]

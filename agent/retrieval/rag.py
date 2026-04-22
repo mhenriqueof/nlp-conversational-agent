@@ -1,5 +1,8 @@
 """
 Responsible for the Retrieval-Augmented Generation pipeline.
+Connects the embedding, memory, profile and LLM layers into a single memory-aware and profile-aware
+conversational flow.
+Each pipeline instance is scoped to a specific user.
 """
 
 from agent.memory.embedder import embed_text
@@ -11,20 +14,25 @@ from agent.profile.updater import ProfileUpdater
 
 class RAGPipeline:
     """
-    Orchestrates the full RAG pipeline for memory-aware response generation.
-    Embeds user input, retrieves similar past episodes and generates a context-enriched response.
+    Orchestrates the full RAG pipeline for memory-aware and profile-aware response generation.
+    Each instance is scoped to a specific user.
 
     Attributes:
-        _memory: Private MemoryStore instance for saving and retrieving episodes.
+        _username: The username identifying the current user.
+        _memory: Private MemoryStore instance scoped to the user.
         _llm: Private LLMClient instance for generating responses.
         _updater: Private ProfileUpdater instance for updating the user profile.
     """
 
-    def __init__(self):
+    def __init__(self, username: str):
         """
-        Initializes the RAGPipeline with all required components.
+        Initializes the RAGPipeline for a specific user.
+
+        Args:
+            username: The username used to scope memory and profile.
         """
-        self._memory = MemoryStore()
+        self._username = username
+        self._memory = MemoryStore(username=username)
         self._llm = LLMClient()
         self._updater = ProfileUpdater()
 
@@ -47,7 +55,7 @@ class RAGPipeline:
             The generated response as a string.
         """
         # 1. Load user profile
-        profile = UserProfile.load()
+        profile = UserProfile.load(username=self._username)
 
         # 2. Embed user message
         embedding = embed_text(user_message)
@@ -66,6 +74,8 @@ class RAGPipeline:
         )
 
         # 6. Update profile with new information
-        self._updater.extract_and_update(user_message, profile)
+        self._updater.extract_and_update(
+            user_message=user_message, profile=profile, username=self._username
+        )
 
         return response

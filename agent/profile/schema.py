@@ -1,6 +1,7 @@
 """
 Defines the user profile schema using Pydantic.
 """
+
 import os
 from pydantic import BaseModel, Field
 
@@ -35,16 +36,16 @@ class UserProfile(BaseModel):
         Returns:
             A formatted string summarizing the user profile.
         """
-        lines = ["[User Profile]"]
+        lines = []
 
         if self.name:
-            lines.append(f"Name: {self.name}")
+            lines.append(f"**Name**: {self.name}\n")
         if self.interests:
-            lines.append(f"Interests: {', '.join(self.interests)}")
+            lines.append(f"**Interests**: {', '.join(self.interests)}\n")
         if self.goals:
-            lines.append(f"Goals: {', '.join(self.goals)}")
+            lines.append(f"**Goals**: {', '.join(self.goals)}\n")
         if self.values:
-            lines.append(f"Values: {', '.join(self.values)}")
+            lines.append(f"**Values**: {', '.join(self.values)}\n")
 
         if len(lines) == 1:
             return ""

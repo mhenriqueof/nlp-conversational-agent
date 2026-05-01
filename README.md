@@ -88,7 +88,7 @@ Each user message is converted into a high-dimensional vector using
 Each conversation episode is stored in ChromaDB with its embedding:
 
 $$
-\text{episode} = \{\ \text{user\_message},\ \text{agent\_response},\ \vec{e},\ \text{timestamp}\ \}
+\text{episode} = \\{ \text{user\\_message}, \text{agent\\_response}, \vec{e}, \text{timestamp} \\}
 $$
 
 Where $\vec{e}$ is the embedding of the user message.

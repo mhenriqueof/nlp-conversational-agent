@@ -7,7 +7,7 @@ semantic retrieval. Built with Hugging Face Inference API, sentence-transformers
 
 ## Objective
 The goal of this project was to build a conversational agent that goes beyond a simple chatbot by
-integrating NLP concepts I have recently studied (NLP, embeddings, RAG, HF) into a real, deployed system.
+integrating NLP concepts I have recently studied (embeddings, RAG, HF) into a real, deployed system.
 
 The project was also an opportunity to practice software engineering principles, including modular design,
 object-oriented programming, clean code practices, structured documentation and proper Git workflow.

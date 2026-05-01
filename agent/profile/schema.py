@@ -36,7 +36,7 @@ class UserProfile(BaseModel):
         Returns:
             A formatted string summarizing the user profile.
         """
-        lines = []
+        lines = [""]
 
         if self.name:
             lines.append(f"**Name**: {self.name}\n")

@@ -2,7 +2,7 @@
 A multi-user conversational agent with persistent episodic memory, dynamic user profiling and
 semantic retrieval. Built with Hugging Face Inference API, sentence-transformers, ChromaDB and Gradio.
 
-🚀 **[Live Demo on Hugging Face Spaces](https://huggingface.co/spaces/mhenriqueof/conversational-agent)**
+🚀 **[Try it on Hugging Face Spaces](https://huggingface.co/spaces/mhenriqueof/conversational-agent)**
 
 
 ## Objective
